@@ -1,15 +1,15 @@
-from EnvLoginGatherer import EnvLoginGatherer
+from datetime import datetime
+import os
 import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from Google import Create_Service
+import base64
 
 
-class SMTPemail(EnvLoginGatherer):
-    def __init__(self, login_file, TO, MSG, TITLE):
-
-        # init EnvLoginGatherer
-        super().__init__(login_file)
+class SMTPemail():
+    def __init__(self, TO, MSG, TITLE):
 
         # init this instance of this object
         self.TO = TO
@@ -33,7 +33,8 @@ class SMTPemail(EnvLoginGatherer):
 
     def login(self):
 
-        self.connection.login(self.username("email"), self.password("email"))
+        self.connection.login(os.environ.get("EMAIL"),
+                              os.environ.get("PASSWORD"))
 
     def disconnect(self):
 
@@ -46,13 +47,50 @@ class SMTPemail(EnvLoginGatherer):
             self.login()
 
             self.connection.sendmail(
-                self.username("email"),
+                os.environ.get("EMAIL"),
                 self.mail["To"],
                 self.mail.as_string()
             )
 
             self.disconnect()
-            print("email sent to:", self.TO)
-        except:
-            print("email could not be sent to:", self.TO)
+            print("")
+        except Exception:
+            print("")
 
+
+class OAuthMail():
+    def __init__(self, FROM, TO, MSG, TITLE):
+
+        # init this instance of this object
+        self.TO = TO
+        self.MSG = MSG
+        self.TITLE = TITLE
+        self.FROM = FROM
+        self.mail = MIMEMultipart()
+
+        self.mail["To"] = self.TO
+        self.mail["Subject"] = self.TITLE
+
+        body = MIMEText(self.MSG, "plain")
+        self.mail.attach(body)
+
+    def start_service(self):
+        self.service = Create_Service(
+            "client_secret.json",
+            "gmail",
+            "v1",
+            ["https://mail.google.com/"]
+        )
+
+    def send(self):
+
+        try:
+            self.start_service()
+
+            raw_string = base64.urlsafe_b64encode(
+                self.mail.as_bytes()).decode()
+            message = self.service.users().messages().send(
+                userId=self.FROM, body={'raw': raw_string}).execute()
+            print("email successfully sent to", self.TO)
+        except Exception:
+            print("email could not be sent")
