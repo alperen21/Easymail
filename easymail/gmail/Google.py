@@ -51,5 +51,6 @@ def convert_to_RFC_datetime(year=1900, month=1, day=1, hour=0, minute=0):
     return dt
 
 
-Create_Service("client_secret.json", "GMAIL",
+if __name__ == "__main__":
+    Create_Service("client_secret.json", "GMAIL",
                "v1", ["https://mail.google.com/"])

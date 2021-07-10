@@ -1,3 +1,9 @@
-__pycache__/*
 login.json
 .DS_Store
+start.sh
+environments/*
+client_secret.json
+token_GMAIL_v1.pickle
+secrets.py
+__pycache__
+*.pyc
