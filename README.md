@@ -1,1 +1,2 @@
-# Easymail
+# Wrapmail
+pip install wrapmail
