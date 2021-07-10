@@ -3,7 +3,7 @@ import os
 import secrets
 import sys
 sys.path.append("..")
-from easymail.smtp.mail import SMTP_mail
+from wrapmail.smtp.mail import SMTP_mail
 
 class SMTP_mailTest(unittest.TestCase):
 

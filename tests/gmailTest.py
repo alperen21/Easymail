@@ -3,7 +3,7 @@ import os
 import secrets
 import sys
 sys.path.append("..")
-from easymail.gmail.email import Gmail
+from wrapmail.gmail.email import Gmail
 
 class GmailTest(unittest.TestCase):
 
