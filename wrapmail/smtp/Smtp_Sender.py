@@ -1,4 +1,4 @@
-from easymail.abstract_sender import Abstract_Sender
+from wrapmail.abstract_sender import Abstract_Sender
 import os
 import smtplib
 import traceback

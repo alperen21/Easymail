@@ -1,5 +1,5 @@
-from easymail.gmail.Gmail_Sender import Gmail_Sender
-from easymail.abstract_mail import Mail
+from wrapmail.gmail.Gmail_Sender import Gmail_Sender
+from wrapmail.abstract_mail import Mail
 
 
 class Gmail(Mail):

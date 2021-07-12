@@ -1,5 +1,5 @@
-from easymail.smtp.Smtp_Sender import SMTP_Sender
-from easymail.abstract_mail import Mail
+from wrapmail.smtp.Smtp_Sender import SMTP_Sender
+from wrapmail.abstract_mail import Mail
 
 
 class SMTP_mail(Mail):

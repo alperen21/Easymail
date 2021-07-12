@@ -1,5 +1,5 @@
-from easymail.abstract_sender import Abstract_Sender
-from easymail.gmail.Google import Create_Service
+from wrapmail.abstract_sender import Abstract_Sender
+from wrapmail.gmail.Google import Create_Service
 import base64
 
 class Gmail_Sender(Abstract_Sender):

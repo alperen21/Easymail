@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from easymail.abstract_sender import Abstract_Sender
+from wrapmail.abstract_sender import Abstract_Sender
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import mimetypes
