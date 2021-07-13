@@ -8,19 +8,34 @@ class SMTP_Sender(Abstract_Sender):
         super().__init__()
 
     def start_service(self):
+        """
+        Start service (connect to the SMTP server and login)
+        """
         try:
-            self.connection = smtplib.SMTP("smtp.gmail.com", 587)
-            self.connection.ehlo()
-            self.connection.starttls()
+            
+            smtp_server = "smtp.gmail.com" 
+            if os.environ.get("SMTP_SERVER"): # check if SMTP_SERVER environment variable is present, if not use smtp.gmail.com
+                smtp_server = os.environ.get("SMTP_SERVER")
+            
+            smtp_port = 587
+            if os.environ.get("SMTP_PORT"): # check if SMTP_PORT environment variable is present, if not use 587
+                smtp_server = int(os.environ.get("SMTP_PORT"))
+
+            self.connection = smtplib.SMTP(smtp_server, smtp_port) #initialize connection
+            self.connection.ehlo() #https://docs.python.org/3/library/smtplib.html
+            self.connection.starttls() #starts transport layer security
             self.connection.login(os.environ.get("EMAIL"),
-                              os.environ.get("PASSWORD"))
-            self.available = True
+                              os.environ.get("PASSWORD")) #logins with environment variables EMAIL and PASSWORD
+            self.available = True # set availability to true (api is ready to send mail)
         except Exception as e:
             print("could not start smtp service")
             print(e) 
-            self.available = False
+            self.available = False # set availability to false (api is not ready to send mail)
 
     def send(self, mail):
+        """
+        Send mail
+        """
         super().send(mail)
         if self.available == False:
             print("service unavailable")
@@ -34,7 +49,7 @@ class SMTP_Sender(Abstract_Sender):
                 mail.as_string()
             )
 
-            self.connection.quit()
+            self.connection.quit() #quit connection
 
         except Exception:
             print("could not send the mail")

@@ -1,8 +1,8 @@
-from wrapmail.gmail.Gmail_Sender import Gmail_Sender
+from wrapmail.smtp.Smtp_Sender import SMTP_Sender
 from wrapmail.abstract_mail import Mail
 
 
-class Gmail(Mail):
+class SMTP_mail(Mail):
     def __init__(self, TO, TITLE="", MSG="", html=None):
         """
         TO: mail address of the person who will receive the mail
@@ -12,11 +12,8 @@ class Gmail(Mail):
 
         These parameters can be accessed and modified using the same variable names
 
-        Make sure you have included client_secret.json in your working directory,
-        if the client secret file is named differently or is located in another directory
-        specify that using CLIENT_SECRET environment variable
+        EMAIL and PASSWORD environment variables are also necessary
         """
-        sender = Gmail_Sender()
+        sender = SMTP_Sender()
         super().__init__(sender, TO, TITLE, MSG, html)
-
 

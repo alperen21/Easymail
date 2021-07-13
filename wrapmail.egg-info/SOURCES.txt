@@ -15,4 +15,4 @@ wrapmail/gmail/__init__.py
 wrapmail/gmail/email.py
 wrapmail/smtp/Smtp_Sender.py
 wrapmail/smtp/__init__.py
-wrapmail/smtp/mail.py
+wrapmail/smtp/email.py

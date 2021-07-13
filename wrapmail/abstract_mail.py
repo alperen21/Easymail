@@ -32,10 +32,16 @@ class Mail(ABC):
 
 
     def send(self) -> bool:
+        """
+        Send mail
+        """
         self.sender.send(self.mail)
 
 
     def add_attachment(self, attach) -> bool:
+        """
+        attach: the filename of the file you are trying to attach
+        """
 
         content_type, encoding = mimetypes.guess_type(attach)
         main_type, sub_type = content_type.split('/',1)
